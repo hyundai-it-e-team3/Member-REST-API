@@ -13,7 +13,7 @@ public class JwtUtil {
 	private static final String secretKey = "12345";
 	
 	//JWT 생성
-	public static String createToken(String mid, String authority) {
+	public static String createToken(String memberId, String authority) {
 		log.info("Run");
 		
 		String result = null;
@@ -26,7 +26,7 @@ public class JwtUtil {
 					//토근의 유효기간 설정
 					.setExpiration(new Date(new Date().getTime() + 1000*60*60*24)) //1000=1초
 					//페이로드or크레임(토큰에 저장되는 데이터) 설정
-					.claim("mid", mid)
+					.claim("memberId", memberId)
 					.claim("authority", authority)
 					//서명 설정
 					.signWith(SignatureAlgorithm.HS256, secretKey.getBytes("UTF-8"))
@@ -59,12 +59,12 @@ public class JwtUtil {
 	}
 	
 	//JWT 정보 얻기
-	public static String getMid(Claims claims) {
+	public static String getMemberId(Claims claims) {
 		log.info("Run");
 		
-		String mid = claims.get("mid", String.class);
+		String memberId = claims.get("memberId", String.class);
 		
-		return mid;
+		return memberId;
 	}
 	
 	public static String getAuthority(Claims claims) {
@@ -76,16 +76,16 @@ public class JwtUtil {
 	//확인
 //	public static void main(String[] args) throws Exception {
 //		//토큰 생성
-//		String mid = "user";
+//		String memberId = "user";
 //		String authority = "ROLE_USER";
-//		String jwt = createToken(mid, authority);
+//		String jwt = createToken(memberId, authority);
 //		log.info(jwt);
 //		
 //		//토큰 유효성 검사
 //		Claims claims = validateToken(jwt);
 //		if(claims != null) {
 //			log.info("유효한 토큰");
-//			log.info("mid: " + getMid(claims));
+//			log.info("memberId: " + getMemberId(claims));
 //			log.info("authority: " + getAuthority(claims));
 //		} else {
 //			log.info("유효하지 않은 토큰");
