@@ -40,12 +40,12 @@ public class JwtCheckFilter extends OncePerRequestFilter {
 			if(claims != null) {
 				log.info("유효한 토큰");
 				//JWT에서 Claims 정보 얻기
-				String mid = JwtUtil.getMid(claims);
+				String memberId = JwtUtil.getMemberId(claims);
 				String authority = JwtUtil.getAuthority(claims);
-				log.info("mid: " + mid);
+				log.info("memberId: " + memberId);
 				log.info("authority: " + authority);
 				//Spring Security 사용자 인증 확인
-				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(mid, null, AuthorityUtils.createAuthorityList(authority));
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(memberId, null, AuthorityUtils.createAuthorityList(authority));
 				SecurityContext securityContext = SecurityContextHolder.getContext();
 				securityContext.setAuthentication(authentication);
 			}
