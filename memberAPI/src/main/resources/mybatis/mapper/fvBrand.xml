@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.FvBrandDao">
+	<select id="getFvBrand" parameterType="String" resultType="fvbrand">
+		SELECT brand_name
+		FROM fv_brand
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<insert id="insertBrand" parameterType="fvbrand">
+		INSERT INTO fv_brand (brand_name, member_id)
+		VALUES (#{brandName}, #{memberId})
+	</insert>
+	
+	<delete id="deleteBrand" parameterType="fvbrand">
+		DELETE FROM fv_brand
+		WHERE member_id = #{memberId} AND brand_name = #{brandName}
+	</delete>
+</mapper>
