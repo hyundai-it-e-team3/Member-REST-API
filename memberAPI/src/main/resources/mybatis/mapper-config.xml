@@ -12,5 +12,6 @@
 		<typeAlias type="com.mycompany.memberAPI.dto.Wishlist" alias="wishlist" />
 		<typeAlias type="com.mycompany.memberAPI.dto.FvBrand" alias="fvbrand" />
 		<typeAlias type="com.mycompany.memberAPI.dto.Address" alias="address" />
+		<typeAlias type="com.mycompany.memberAPI.dto.Account" alias="account" />
 	</typeAliases>
 </configuration>
