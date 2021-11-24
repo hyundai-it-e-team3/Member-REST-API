@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.WishlistDao">
+	<select id="getWishlist" parameterType="String" resultType="wishlist">
+		SELECT product_detail_id
+		FROM wishlist
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<insert id="insertProduct" parameterType="wishlist">
+		INSERT INTO wishlist (product_detail_id, member_id)
+		VALUES (#{productDetailId}, #{memberId})
+	</insert>
+	
+	<delete id="deleteProduct" parameterType="wishlist">
+		DELETE FROM wishlist
+		WHERE product_detail_id = #{productDetailId} AND member_id = #{memberId}
+	</delete>
+</mapper>
