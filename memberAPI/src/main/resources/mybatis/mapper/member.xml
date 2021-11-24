@@ -12,4 +12,10 @@
 		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status)
 		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1')
 	</insert>
+	
+	<update id="deleteMember" parameterType="String">
+		UPDATE member
+		SET status = '0'
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>

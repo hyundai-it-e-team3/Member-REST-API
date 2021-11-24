@@ -43,4 +43,9 @@ public class MemberService {
 		}
 	}
 	
+	public void deleteMember(String memberId) {
+		log.info("실행");
+		memberDao.deleteMember(memberId);
+	}
+	
 }
