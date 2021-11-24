@@ -18,4 +18,5 @@ public class Member {
 	private String kakaoNo;
 	private String memberRole;
 	private char status;
+	private Date lastLoginDate;
 }

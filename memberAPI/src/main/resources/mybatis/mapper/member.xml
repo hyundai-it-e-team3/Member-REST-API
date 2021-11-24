@@ -9,13 +9,19 @@
 	</select>
 
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status)
-		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1')
+		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date)
+		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1', sysdate)
 	</insert>
 	
 	<update id="deleteMember" parameterType="String">
 		UPDATE member
 		SET status = '0'
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="updateLastLoginDate" parameterType="String">
+		UPDATE member
+		SET last_login_date = sysdate
 		WHERE member_id = #{memberId}
 	</update>
 </mapper>
