@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.AddressDao">
+	<select id="getAddress" parameterType="String" resultType="address">
+		SELECT *
+		FROM address
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<insert id="insertAddress" parameterType="address">
+		INSERT INTO address (address_seq, name, zip_code, address1, address2, tel, member_id)
+		VALUES (seq_address.NEXTVAL, #{name}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{memberId})
+	</insert>
+	
+	<update id="updateAddress" parameterType="address">
+		UPDATE address
+		SET name = #{name},
+			zip_code = #{zipCode},
+			address1 = #{address1},
+			address2 = #{address2},
+			tel = #{tel},
+			member_id = #{memberId}
+		WHERE address_seq = #{addressSeq}
+	</update>
+	
+	<delete id="deleteAddress" parameterType="address">
+		DELETE FROM address
+		WHERE address_seq = #{addressSeq}
+	</delete>
+</mapper>
