@@ -2,7 +2,12 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
 <configuration>
+	<settings>
+	    <setting name="mapUnderscoreToCamelCase" value="true"/>
+	    <setting name="callSettersOnNulls" value="true"/>
+	 </settings>
+
 	<typeAliases>
-		
-	</typeAliases>	
+		<typeAlias type="com.mycompany.memberAPI.dto.Member" alias="member" />
+	</typeAliases>
 </configuration>

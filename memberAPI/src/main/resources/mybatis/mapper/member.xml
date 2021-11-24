@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.MemberDao">
+	<select id="selectByMemberId" parameterType="String" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
+
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status)
+		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1')
+	</insert>
+</mapper>
