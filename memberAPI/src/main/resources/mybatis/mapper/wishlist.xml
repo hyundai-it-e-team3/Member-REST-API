@@ -15,6 +15,6 @@
 	
 	<delete id="deleteProduct" parameterType="wishlist">
 		DELETE FROM wishlist
-		WHERE product_detail_id = #{productDetailId} AND member_id = #{memberId}
+		WHERE member_id = #{memberId} AND product_detail_id = #{productDetailId}
 	</delete>
 </mapper>
