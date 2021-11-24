@@ -12,9 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +40,7 @@ public class MemberController {
 	@Resource
 	private AuthenticationManager authenticationManager;
 	
-	@PostMapping
+	@PostMapping("/join")
 	public String insertMember(@RequestBody Member member) {
 		log.info("회원가입 실행");
 		
@@ -67,15 +67,18 @@ public class MemberController {
 		return result;
 	}
 	
-	@PutMapping
+	@PatchMapping("/delete")
 	public void deleteMember(@RequestBody String memberId) {
 		log.info("회원탈퇴 실행");
 		memberService.deleteMember(memberId);
 	}
 	
-	@PatchMapping
-	public Map<String, String> login(@RequestBody String memberId, String password) {
+	@PatchMapping("/login")
+	public Map<String, String> login(@RequestBody Member member) {
 		log.info("로그인 실행");
+		
+		String memberId = member.getMemberId();
+		String password = member.getPassword();
 		
 		if(memberId == null) {
 			throw new BadCredentialsException("아이디를 입력해주세요.");
@@ -96,8 +99,18 @@ public class MemberController {
 		map.put("result", "success");
 		map.put("memberId", memberId);
 		map.put("jwt", JwtUtil.createToken(memberId, authority));
-		
 		return map;
 	}
 	
+	@GetMapping
+	public Member getMember(@RequestBody String memberId) {
+		log.info("회원정보 조회");
+		return memberService.selectByMemberId(memberId);
+	}
+	
+	@PatchMapping
+	public void updateMember(@RequestBody Member member) {
+		log.info("회원정보 수정");
+		memberService.updateMember(member);
+	}
 }

@@ -55,4 +55,14 @@ public class MemberService {
 		memberDao.updateLastLoginDate(memberId);
 	}
 	
+	//회원정보 조회
+	public Member selectByMemberId(String memberId) {
+		return memberDao.selectByMemberId(memberId);
+	}
+	
+	//회원정보 수정
+	public void updateMember(Member member) {
+		memberDao.updateMember(member);
+	}
+	
 }
