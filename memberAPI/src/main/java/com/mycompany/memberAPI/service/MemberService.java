@@ -60,5 +60,9 @@ public class MemberService {
 		return memberDao.selectByMemberId(memberId);
 	}
 	
+	//회원정보 수정
+	public void updateMember(Member member) {
+		memberDao.updateMember(member);
+	}
 	
 }

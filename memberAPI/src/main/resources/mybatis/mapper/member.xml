@@ -24,4 +24,12 @@
 		SET last_login_date = sysdate
 		WHERE member_id = #{memberId}
 	</update>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE member
+		SET password = #{password},
+			nickname = #{nickname},
+			tel = #{tel}
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>
