@@ -1,9 +1,18 @@
 package com.mycompany.memberAPI.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.memberAPI.dto.Member;
+import com.mycompany.memberAPI.security.JwtUtil;
 import com.mycompany.memberAPI.service.MemberService;
 import com.mycompany.memberAPI.service.MemberService.JoinResult;
 
@@ -26,6 +36,9 @@ public class MemberController {
 	
 	@Resource
 	private MemberService memberService;
+	
+	@Resource
+	private AuthenticationManager authenticationManager;
 	
 	@PostMapping
 	public String insertMember(@RequestBody Member member) {
@@ -58,6 +71,33 @@ public class MemberController {
 	public void deleteMember(@RequestBody String memberId) {
 		log.info("회원탈퇴 실행");
 		memberService.deleteMember(memberId);
+	}
+	
+	@PatchMapping
+	public Map<String, String> login(@RequestBody String memberId, String password) {
+		log.info("로그인 실행");
+		
+		if(memberId == null) {
+			throw new BadCredentialsException("아이디를 입력해주세요.");
+		} else if(password == null) {
+			throw new BadCredentialsException("패스워드를 입력해주세요.");
+		}
+		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(memberId, password);
+		Authentication authentication = authenticationManager.authenticate(token); //아이디, 비밀번호 인증 여부 확인 후 객체 생성
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		securityContext.setAuthentication(authentication);
+		
+		//최근 로그인 날짜 업데이트
+		memberService.updateLastLoginDate(memberId);
+		
+		Map<String, String> map = new HashMap<>();
+		String authority = authentication.getAuthorities().iterator().next().toString();
+		map.put("result", "success");
+		map.put("memberId", memberId);
+		map.put("jwt", JwtUtil.createToken(memberId, authority));
+		
+		return map;
 	}
 	
 }

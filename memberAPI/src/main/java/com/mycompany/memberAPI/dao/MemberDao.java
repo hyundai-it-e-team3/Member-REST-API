@@ -9,4 +9,5 @@ public interface MemberDao {
 	public Member selectByMemberId(String memberId);
 	public void insertMember(Member member);
 	public void deleteMember(String memberId);
+	public void updateLastLoginDate(String memberId);
 }

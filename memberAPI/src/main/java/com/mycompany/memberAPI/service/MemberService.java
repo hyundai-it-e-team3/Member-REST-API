@@ -43,9 +43,16 @@ public class MemberService {
 		}
 	}
 	
+	//회원탈퇴
 	public void deleteMember(String memberId) {
 		log.info("실행");
 		memberDao.deleteMember(memberId);
+	}
+	
+	//로그인 시 마지막 로그인 날짜 업데이트
+	public void updateLastLoginDate(String memberId) {
+		log.info("실행");
+		memberDao.updateLastLoginDate(memberId);
 	}
 	
 }

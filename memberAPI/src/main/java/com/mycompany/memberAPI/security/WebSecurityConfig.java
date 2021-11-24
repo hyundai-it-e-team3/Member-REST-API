@@ -26,15 +26,12 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	@Resource
-	private DataSource dataSource;
-	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+		
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {	
 		log.info("configure(HttpSecurity http) 실행");
@@ -46,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//요청 경로 권한 설정
 		http.authorizeRequests()
-			.antMatchers("/backoffice/**").authenticated()
+//			.antMatchers("/backoffice/**").hasAuthority("ROLE_MANAGER")
+//			.antMatchers("/member/**").authenticated() //로그인된(인증된) 모든 사용자 접근 가능
 			.antMatchers("/**").permitAll();
 		
 		//세션 비활성화
@@ -58,15 +56,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//CORS 설정 활성화
 		http.cors();
-	}	
+	}
+	
+	@Resource
+	private DataSource dataSource;
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		//return new BCryptPasswordEncoder();
+		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		log.info("configure(AuthenticationManagerBuilder auth) 실행");
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder(passwordEncoder());
-		auth.authenticationProvider(provider);
-	}	
+		
+		//DB에서 가져올 사용자 정보 설정
+		auth.jdbcAuthentication()
+			.dataSource(dataSource)
+			.usersByUsernameQuery("SELECT member_id, password, status FROM member WHERE member_id=?")
+			.authoritiesByUsernameQuery("SELECT member_id, member_role FROM member WHERE member_id=?")
+			.passwordEncoder(passwordEncoder()); //default: DelegatingPasswordEncoder
+	}
+	
+	@Bean
+	public RoleHierarchyImpl roleHierarchyImpl() {
+		log.info("실행");
+		RoleHierarchyImpl roleHierarchyImpl = new RoleHierarchyImpl();
+		roleHierarchyImpl.setHierarchy("ROLE_ADMIN > ROLE_MANAGER > ROLE_USER");
+		return roleHierarchyImpl;
+	}
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -82,20 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/jquery/**")
 		.antMatchers("/favicon.ico");		
 	}	
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		//return new BCryptPasswordEncoder();
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
-	
-	@Bean
-	public RoleHierarchyImpl roleHierarchyImpl() {
-		log.info("실행");
-		RoleHierarchyImpl roleHierarchyImpl = new RoleHierarchyImpl();
-		roleHierarchyImpl.setHierarchy("ROLE_ADMIN > ROLE_MANAGER > ROLE_USER");
-		return roleHierarchyImpl;
-	}
 	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
