@@ -9,5 +9,6 @@
 
 	<typeAliases>
 		<typeAlias type="com.mycompany.memberAPI.dto.Member" alias="member" />
+		<typeAlias type="com.mycompany.memberAPI.dto.Wishlist" alias="wishlist" />
 	</typeAliases>
 </configuration>
