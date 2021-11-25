@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycompany.memberAPI.dao.MemberDao">
-	<select id="selectByMemberId" parameterType="String" resultType="member">
+	<select id="getMember" parameterType="String" resultType="member">
 		SELECT *
 		FROM member
 		WHERE member_id = #{memberId}
@@ -32,4 +32,12 @@
 			tel = #{tel}
 		WHERE member_id = #{memberId}
 	</update>
+	
+	<select id="getMemberForOrder" parameterType="String" resultType="memberfororder">
+		SELECT m.name orderName, m.tel orderTel, a.name deliveryName, a.tel deliveryTel, a.zip_code, a.address1, a.address2
+		FROM member m, address a
+		WHERE m.member_id = a.member_id
+		AND m.member_id = #{memberId}
+		AND a.default_address = '1'
+	</select>
 </mapper>

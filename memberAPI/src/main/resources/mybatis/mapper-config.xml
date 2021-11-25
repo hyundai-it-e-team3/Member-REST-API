@@ -13,5 +13,6 @@
 		<typeAlias type="com.mycompany.memberAPI.dto.FvBrand" alias="fvbrand" />
 		<typeAlias type="com.mycompany.memberAPI.dto.Address" alias="address" />
 		<typeAlias type="com.mycompany.memberAPI.dto.Account" alias="account" />
+		<typeAlias type="com.mycompany.memberAPI.dto.MemberForOrder" alias="memberfororder" />
 	</typeAliases>
 </configuration>

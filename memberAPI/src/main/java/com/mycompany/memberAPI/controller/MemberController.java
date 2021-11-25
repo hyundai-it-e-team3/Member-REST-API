@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.memberAPI.dto.Member;
+import com.mycompany.memberAPI.dto.MemberForOrder;
 import com.mycompany.memberAPI.security.JwtUtil;
 import com.mycompany.memberAPI.service.MemberService;
 import com.mycompany.memberAPI.service.MemberService.JoinResult;
@@ -41,7 +42,7 @@ public class MemberController {
 	private AuthenticationManager authenticationManager;
 	
 	@PostMapping("/join")
-	public String insertMember(@RequestBody Member member) {
+	public String joinMember(@RequestBody Member member) {
 		log.info("회원가입 실행");
 		
 		//비밀번호 암호화
@@ -105,7 +106,7 @@ public class MemberController {
 	@GetMapping
 	public Member getMember(@RequestBody String memberId) {
 		log.info("회원정보 조회");
-		return memberService.selectByMemberId(memberId);
+		return memberService.getMember(memberId);
 	}
 	
 	@PatchMapping
@@ -113,4 +114,11 @@ public class MemberController {
 		log.info("회원정보 수정");
 		memberService.updateMember(member);
 	}
+	
+	@GetMapping("/order")
+	public MemberForOrder getMemberForOrder(@RequestBody String memberId) {
+		log.info("주문을 위한 회원정보 조회");
+		return memberService.getMemberForOrder(memberId);
+	}
+	
 }

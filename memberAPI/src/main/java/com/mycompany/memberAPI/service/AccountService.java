@@ -28,7 +28,7 @@ public class AccountService {
 	}
 	
 	public void insertAccount(Account account) {
-		Member member = memberDao.selectByMemberId(account.getMemberId());
+		Member member = memberDao.getMember(account.getMemberId());
 		String oneclickpayPassword = member.getOneclickpayPassword();
 		
 		if(oneclickpayPassword == null) {

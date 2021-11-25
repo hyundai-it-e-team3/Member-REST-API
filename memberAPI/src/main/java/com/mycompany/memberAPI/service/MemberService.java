@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.memberAPI.dao.MemberDao;
 import com.mycompany.memberAPI.dto.Member;
+import com.mycompany.memberAPI.dto.MemberForOrder;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +28,7 @@ public class MemberService {
 		log.info("가입 여부에 따른 회원가입 처리 과정 실행");
 		
 		//해당 아이디가 중복 아이디인지 확인
-		Member dbMember = memberDao.selectByMemberId(member.getMemberId());
+		Member dbMember = memberDao.getMember(member.getMemberId());
 		
 		//가입 여부에 따라서 회원가입 및 회원정보 DB 저장
 		try {
@@ -56,13 +57,18 @@ public class MemberService {
 	}
 	
 	//회원정보 조회
-	public Member selectByMemberId(String memberId) {
-		return memberDao.selectByMemberId(memberId);
+	public Member getMember(String memberId) {
+		return memberDao.getMember(memberId);
 	}
 	
 	//회원정보 수정
 	public void updateMember(Member member) {
 		memberDao.updateMember(member);
+	}
+	
+	//주문을 위한 회원정보 조회
+	public MemberForOrder getMemberForOrder(String memberId) {
+		return memberDao.getMemberForOrder(memberId);
 	}
 	
 }
