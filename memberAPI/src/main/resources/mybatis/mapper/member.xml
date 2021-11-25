@@ -9,8 +9,8 @@
 	</select>
 
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date)
-		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1', sysdate)
+		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date, point)
+		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1', sysdate, 0)
 	</insert>
 	
 	<update id="deleteMember" parameterType="String">
@@ -40,4 +40,16 @@
 		AND m.member_id = #{memberId}
 		AND a.default_address = '1'
 	</select>
+	
+	<update id="updateSavePoint" parameterType="member">
+		UPDATE member
+		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) + #{point}
+		WHERE member_id = #{memberId}
+	</update>
+	
+	<update id="updateUsePoint" parameterType="member">
+		UPDATE member
+		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) - #{point}
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>

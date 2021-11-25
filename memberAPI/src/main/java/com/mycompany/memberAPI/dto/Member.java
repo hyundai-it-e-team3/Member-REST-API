@@ -19,4 +19,5 @@ public class Member {
 	private String memberRole;
 	private char status;
 	private Date lastLoginDate;
+	private int point;
 }
