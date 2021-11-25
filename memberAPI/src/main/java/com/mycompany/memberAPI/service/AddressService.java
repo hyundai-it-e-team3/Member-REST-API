@@ -21,7 +21,14 @@ public class AddressService {
 	}
 	
 	public void insertAddress(Address address) {
-		addressDao.insertAddress(address);
+		char defaultAddress = address.getDefaultAddress();
+		if(defaultAddress == '1') {
+			addressDao.updateDefaultAddressAddress(address.getMemberId());
+			addressDao.insertAddress(address);
+		} else {
+			addressDao.insertAddress(address);
+		}
+		
 	}
 	
 	public void updateAddress(Address address) {
