@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.memberAPI.dto.Account;
 import com.mycompany.memberAPI.service.AccountService;
+import com.mycompany.memberAPI.service.AccountService.InsertAccountResult;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,9 +33,20 @@ public class AccountController {
 	}
 	
 	@PostMapping
-	public void insertAccount(@RequestBody Account account) {
+	public String insertAccount(@RequestBody Account account) {
 		log.info("결제수단 추가");
-		accountService.insertAccount(account);
+		
+		//결제수단 추가 시 결제비밀번호가 존재하지 않을 경우 결제비밀번호 추가를 위한 처리
+		InsertAccountResult iar = accountService.insertAccount(account);
+
+		String result;
+		if(iar == InsertAccountResult.SUCCESS) {
+			result = "success";
+		} else {
+			result = "fail";
+		}
+		
+		return result;
 	}
 	
 	@DeleteMapping

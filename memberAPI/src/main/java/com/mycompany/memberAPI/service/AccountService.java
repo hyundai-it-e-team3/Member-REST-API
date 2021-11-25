@@ -17,6 +17,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AccountService {
 	
+	public enum InsertAccountResult {
+		SUCCESS,
+		FAIL
+	}
+	
 	@Resource
 	private AccountDao accountDao;
 	
@@ -27,16 +32,17 @@ public class AccountService {
 		return accountDao.getAccount(memberId);
 	}
 	
-	public void insertAccount(Account account) {
+	public InsertAccountResult insertAccount(Account account) {
 		Member member = memberDao.getMember(account.getMemberId());
 		String oneclickpayPassword = member.getOneclickpayPassword();
 		
 		if(oneclickpayPassword == null) {
-			//결제비밀번호 등록 후 등록하도록 처리
 			log.info("결제비밀번호 등록 후 계좌를 등록하시오.");
+			return InsertAccountResult.FAIL;
 		} else {
 			accountDao.insertAccount(account);
 			log.info("결제수단 등록 성공");
+			return InsertAccountResult.SUCCESS;
 		}
 	}
 	
