@@ -14,5 +14,6 @@
 		<typeAlias type="com.mycompany.memberAPI.dto.Address" alias="address" />
 		<typeAlias type="com.mycompany.memberAPI.dto.Account" alias="account" />
 		<typeAlias type="com.mycompany.memberAPI.dto.MemberForOrder" alias="memberfororder" />
+		<typeAlias type="com.mycompany.memberAPI.dto.MemberCoupon" alias="memberCoupon" />
 	</typeAliases>
 </configuration>

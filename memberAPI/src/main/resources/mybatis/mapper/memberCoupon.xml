@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.MemberCouponDao">
+	<select id="getAvailableMemberCoupon" parameterType="String" resultType="memberCoupon">
+		SELECT *
+		FROM member_coupon
+		WHERE member_id = #{memberId}
+		AND status = '1'
+	</select>
+	
+	<select id="getUnavailableMemberCoupon" parameterType="String" resultType="memberCoupon">
+		SELECT *
+		FROM member_coupon
+		WHERE member_id = #{memberId}
+		AND status = '2' AND status = '3'
+	</select>
+	
+	<insert id="insertMemberCoupon" parameterType="memberCoupon">
+		INSERT INTO member_coupon (member_id, coupon_id, reg_date, exp_date, status)
+		VALUES (#{memberId}, #{couponId}, sysdate, #{expDate}, '1')
+	</insert>
+	
+	<update id="updateMemberCoupon" parameterType="memberCoupon">
+		UPDATE member_coupon 
+		SET status = '2'
+		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
+	</update>
+	
+	<select id="getDuplicateCoupon" parameterType="memberCoupon" resultType="memberCoupon">
+		SELECT *
+		FROM member_coupon
+		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
+	</select>
+</mapper>
