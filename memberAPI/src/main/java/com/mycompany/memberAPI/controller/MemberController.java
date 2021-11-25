@@ -57,8 +57,8 @@ public class MemberController {
 		if(jr == JoinResult.SUCCESS) {
 			result = "success";
 			log.info("회원가입 성공");
-		} else if(jr == JoinResult.DUPLICATED) {
-			result = "duplicated";
+		} else if(jr == JoinResult.DUPLICATE) {
+			result = "duplicate";
 			log.info("중복된 아이디");
 		} else {
 			result = "fail";

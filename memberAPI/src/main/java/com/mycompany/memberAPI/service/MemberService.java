@@ -17,7 +17,7 @@ public class MemberService {
 	public enum JoinResult {
 		SUCCESS,
 		FAIL,
-		DUPLICATED
+		DUPLICATE
 	}
 	
 	@Resource
@@ -36,7 +36,7 @@ public class MemberService {
 				memberDao.insertMember(member);
 				return JoinResult.SUCCESS;
 			} else {
-				return JoinResult.DUPLICATED;
+				return JoinResult.DUPLICATE;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
