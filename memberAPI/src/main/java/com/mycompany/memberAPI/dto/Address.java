@@ -11,5 +11,5 @@ public class Address {
 	private String address2;
 	private String tel;
 	private String memberId;
-	private char defaulAddress;
+	private char defaultAddress;
 }

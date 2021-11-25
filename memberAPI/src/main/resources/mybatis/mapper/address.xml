@@ -9,8 +9,8 @@
 	</select>
 	
 	<insert id="insertAddress" parameterType="address">
-		INSERT INTO address (address_seq, name, zip_code, address1, address2, tel, member_id)
-		VALUES (seq_address.NEXTVAL, #{name}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{memberId})
+		INSERT INTO address (address_seq, name, zip_code, address1, address2, tel, member_id, default_address)
+		VALUES (seq_address.NEXTVAL, #{name}, #{zipCode}, #{address1}, #{address2}, #{tel}, #{memberId}, #{defaultAddress})
 	</insert>
 	
 	<update id="updateAddress" parameterType="address">
@@ -28,4 +28,11 @@
 		DELETE FROM address
 		WHERE address_seq = #{addressSeq}
 	</delete>
+	
+	<update id="updateDefaultAddressAddress" parameterType="String">
+		UPDATE address
+		SET default_address = '0'
+		WHERE member_id = #{memberId}
+		AND default_address = '1'
+	</update>
 </mapper>
