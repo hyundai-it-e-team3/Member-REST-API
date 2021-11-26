@@ -4,7 +4,7 @@
 <mapper namespace="com.mycompany.memberAPI.dao.SavePointDao">
 	<insert id="insertPoint" parameterType="savePoint">
 		INSERT INTO save_point
-		VALUES (seq_save_point.NEXTVAL, #{point}, #{balance}, #{content}, sysdate, sysdate+30, 'Y', #{memberId})
+		VALUES (seq_save_point.NEXTVAL, #{point}, #{balance}, #{saveType}, sysdate, sysdate+30, 'Y', #{memberId})
 	</insert>
 	
 	<select id="getAvailableOlderPoint" parameterType="String" resultType="savePoint">

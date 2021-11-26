@@ -58,6 +58,7 @@ public class UsePointService {
 			DetailPoint detailPoint = new DetailPoint();
 			detailPoint.setSavePointSeq(olderSavePoint.getSavePointSeq());
 			detailPoint.setUsePointSeq(usePoint.getUsePointSeq());
+			detailPoint.setOrderId(usePoint.getOrderId());
 			
 			int savePoint = olderSavePoint.getBalance();
 			//savePoint가 현재 사용하려는 포인트보다 잔액이 많을 경우

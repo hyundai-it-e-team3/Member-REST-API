@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.PointListDao">
+	<select id="getPointList" parameterType="String" resultType="pointList">
+		SELECT sp.save_point_seq savePointSeq, sp.point savePoint, sp.save_type saveType, sp.reg_date saveRegDate, sp.exp_date saveExpDate,
+			   up.use_point_seq usePointSeq, up.point usePoint, up.use_type useType, up.reg_date useRegDate
+		FROM save_point sp,
+			 detail_point dp,
+			 use_point up
+		WHERE sp.save_point_seq = dp.save_point_seq
+		AND dp.use_point_seq = up.use_point_seq
+		AND member_id =  #{memberId}
+	</select>
+</mapper>
