@@ -7,6 +7,6 @@
 			SELECT seq_use_point.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO use_point
-		VALUES (#{usePointSeq}, #{point}, #{content}, sysdate)
+		VALUES (#{usePointSeq}, #{point}, #{useType}, sysdate)
 	</insert>
 </mapper>

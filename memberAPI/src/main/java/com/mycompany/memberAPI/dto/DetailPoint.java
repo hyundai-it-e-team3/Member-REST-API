@@ -7,4 +7,5 @@ public class DetailPoint {
 	private int savePointSeq;
 	private int usePointSeq;
 	private int point;
+	private String orderId;
 }

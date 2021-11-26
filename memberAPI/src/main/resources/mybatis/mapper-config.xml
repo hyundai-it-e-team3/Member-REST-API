@@ -18,5 +18,6 @@
 		<typeAlias type="com.mycompany.memberAPI.dto.SavePoint" alias="savePoint" />
 		<typeAlias type="com.mycompany.memberAPI.dto.UsePoint" alias="usePoint" />
 		<typeAlias type="com.mycompany.memberAPI.dto.DetailPoint" alias="detailPoint" />
+		<typeAlias type="com.mycompany.memberAPI.dto.PointList" alias="pointList" />
 	</typeAliases>
 </configuration>
