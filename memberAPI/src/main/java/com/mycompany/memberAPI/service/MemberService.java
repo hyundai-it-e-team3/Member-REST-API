@@ -71,4 +71,9 @@ public class MemberService {
 		return memberDao.getMemberForOrder(memberId);
 	}
 	
+	//회원 포인트 잔액 조회
+	public int getMemberPoint(String memberId) {
+		return memberDao.getMemberPoint(memberId);
+	}
+	
 }
