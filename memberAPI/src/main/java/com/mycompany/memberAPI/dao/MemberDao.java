@@ -15,4 +15,5 @@ public interface MemberDao {
 	public MemberForOrder getMemberForOrder(String memberId);
 	public void updateSavePoint(Member member);
 	public void updateUsePoint(Member member);
+	public int getMemberPoint(String memberId);
 }
