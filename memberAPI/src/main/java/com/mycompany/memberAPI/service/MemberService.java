@@ -76,4 +76,9 @@ public class MemberService {
 		return memberDao.getMemberPoint(memberId);
 	}
 	
+	//원클릭페이 결제비밀번호 설정
+		public void updateAccountPassword(Member member) {
+			memberDao.updateAccountPassword(member);
+		}
+	
 }

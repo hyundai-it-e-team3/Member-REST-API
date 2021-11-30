@@ -58,4 +58,10 @@
 		FROM member
 		WHERE member_id = #{memberId}
 	</select>
+	
+	<update id="updateAccountPassword" parameterType="member">
+		UPDATE member 
+		SET oneclickpay_password = #{oneclickpayPassword}
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>

@@ -16,4 +16,5 @@ public interface MemberDao {
 	public void updateSavePoint(Member member);
 	public void updateUsePoint(Member member);
 	public int getMemberPoint(String memberId);
+	public void updateAccountPassword(Member member);
 }

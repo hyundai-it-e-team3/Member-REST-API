@@ -39,7 +39,14 @@ public class AddressService {
 	}
 	
 	public void updateAddress(Address address) {
-		addressDao.updateAddress(address);
+		String defaultAddress = address.getDefaultAddress();
+		log.info(defaultAddress);
+		if(defaultAddress.equals("1")) {
+			addressDao.updateDefaultAddressAddress(address.getMemberId());
+			addressDao.updateAddress(address);
+		} else {
+			addressDao.updateAddress(address);
+		}
 	}
 	
 	public void deleteAddress(String addressSeq) {

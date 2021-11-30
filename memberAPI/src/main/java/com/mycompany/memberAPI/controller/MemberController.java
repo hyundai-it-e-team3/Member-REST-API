@@ -122,4 +122,10 @@ public class MemberController {
 		return memberService.getMemberForOrder(memberId);
 	}
 	
+	@PostMapping("/oneclickpayPassword")
+	public void updateAccountPassword(@RequestBody Member member) {
+		log.info("원클릭페이 결제 비밀번호 설정 실행");
+		memberService.updateAccountPassword(member);
+	}
+	
 }
