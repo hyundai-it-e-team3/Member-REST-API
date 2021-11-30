@@ -2,10 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycompany.memberAPI.dao.AddressDao">
-	<select id="getAddress" parameterType="String" resultType="address">
+	<select id="getAddressList" parameterType="String" resultType="address">
 		SELECT *
 		FROM address
 		WHERE member_id = #{memberId}
+	</select>
+	
+	<select id="getAddress" parameterType="String" resultType="address">
+		SELECT *
+		FROM address
+		WHERE address_seq = #{addressSeq}
 	</select>
 	
 	<insert id="insertAddress" parameterType="address">
@@ -24,7 +30,7 @@
 		WHERE address_seq = #{addressSeq}
 	</update>
 	
-	<delete id="deleteAddress" parameterType="address">
+	<delete id="deleteAddress" parameterType="String">
 		DELETE FROM address
 		WHERE address_seq = #{addressSeq}
 	</delete>
