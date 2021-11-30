@@ -10,7 +10,7 @@
 
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date, point)
-		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, #{birthday}, '1', #{memberRole}, '1', sysdate, 0)
+		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, to_date(#{birthday}, 'yymmdd'), '1', #{memberRole}, '1', sysdate, 0)
 	</insert>
 	
 	<update id="deleteMember" parameterType="String">

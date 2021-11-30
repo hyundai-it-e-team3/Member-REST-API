@@ -6,9 +6,11 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.memberAPI.dto.Account;
@@ -25,8 +27,8 @@ public class AccountController {
 	@Resource
 	private AccountService accountService;
 	
-	@GetMapping
-	public List<Account> getAccount(@RequestBody String memberId) {
+	@GetMapping("/{memberId}")
+	public List<Account> getAccount(@PathVariable String memberId) {
 		log.info("결제수단 조회");
 		List<Account> account = accountService.getAccount(memberId);
 		return account;
@@ -35,6 +37,7 @@ public class AccountController {
 	@PostMapping
 	public String insertAccount(@RequestBody Account account) {
 		log.info("결제수단 추가");
+		log.info(account.toString());
 		
 		//결제수단 추가 시 결제비밀번호가 존재하지 않을 경우 결제비밀번호 추가를 위한 처리
 		InsertAccountResult iar = accountService.insertAccount(account);
@@ -43,14 +46,14 @@ public class AccountController {
 		if(iar == InsertAccountResult.SUCCESS) {
 			result = "success";
 		} else {
-			result = "fail";
-		}
+			result = "requiredpassword";
+		} 
 		
 		return result;
 	}
 	
 	@DeleteMapping
-	public void deleteAccount(@RequestBody String accountNo) {
+	public void deleteAccount(@RequestParam String accountNo) {
 		log.info("결제수단 삭제");
 		accountService.deleteAccount(accountNo);
 	}

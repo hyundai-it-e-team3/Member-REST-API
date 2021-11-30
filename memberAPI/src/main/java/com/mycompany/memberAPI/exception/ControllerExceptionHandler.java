@@ -1,7 +1,6 @@
 package com.mycompany.memberAPI.exception;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 

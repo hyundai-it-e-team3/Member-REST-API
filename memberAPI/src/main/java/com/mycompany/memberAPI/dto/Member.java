@@ -12,7 +12,7 @@ public class Member {
 	private String nickname;
 	private String email;
 	private String tel;
-	private Date birthday;
+	private String birthday;
 	private char memberLevel;
 	private String oneclickpayPassword;
 	private String kakaoNo;
