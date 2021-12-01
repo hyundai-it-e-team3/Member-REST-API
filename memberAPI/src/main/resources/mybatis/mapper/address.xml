@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycompany.memberAPI.dao.AddressDao">
+	<select id="getDefaultAddress" parameterType="String" resultType="address">
+		SELECT *
+		FROM address
+		WHERE member_id = #{member_id}
+		AND detault_address = '1'
+	</select>
 	<select id="getAddressList" parameterType="String" resultType="address">
 		SELECT *
 		FROM address

@@ -8,6 +8,7 @@ import com.mycompany.memberAPI.dto.Address;
 
 @Mapper
 public interface AddressDao {
+	public Address getDefaultAddress(String memberId);
 	public List<Address> getAddressList(String memberId);
 	public Address getAddress(String addressSeq);
 	public void insertAddress(Address address);

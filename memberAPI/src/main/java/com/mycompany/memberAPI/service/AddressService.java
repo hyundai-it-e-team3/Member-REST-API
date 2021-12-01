@@ -18,6 +18,10 @@ public class AddressService {
 	@Resource
 	private AddressDao addressDao;
 	
+	public Address getDefaultAddress(String memberId) {
+		return addressDao.getDefaultAddress(memberId);
+	}
+	
 	public List<Address> getAddressList(String memberId) {
 		List<Address> address = addressDao.getAddressList(memberId);
 		return address;

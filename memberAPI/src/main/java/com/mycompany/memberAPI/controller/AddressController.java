@@ -26,6 +26,12 @@ public class AddressController {
 	@Resource
 	private AddressService addressService;
 	
+	//기본배송지 조회
+	@GetMapping("/{memberId}")
+	public Address getDefaultAddress(@PathVariable String memberId) {
+		return addressService.getDefaultAddress(memberId);
+	}
+	
 	//주소 목록 조회
 	@GetMapping("/list/{memberId}")
 	public List<Address> getAddressList(@PathVariable String memberId) {
@@ -56,7 +62,6 @@ public class AddressController {
 		addressService.updateAddress(address);
 	}
 	
-	
 	//주소 삭제
 	@DeleteMapping("/{addressSeq}")
 	public void deleteAddress(@PathVariable String addressSeq) {
@@ -64,4 +69,5 @@ public class AddressController {
 		log.info(addressSeq.toString());
 		addressService.deleteAddress(addressSeq);
 	}
+	
 }
