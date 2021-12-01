@@ -15,9 +15,7 @@
 		<typeAlias type="com.mycompany.memberAPI.dto.Account" alias="account" />
 		<typeAlias type="com.mycompany.memberAPI.dto.MemberForOrder" alias="memberfororder" />
 		<typeAlias type="com.mycompany.memberAPI.dto.MemberCoupon" alias="memberCoupon" />
-		<typeAlias type="com.mycompany.memberAPI.dto.SavePoint" alias="savePoint" />
-		<typeAlias type="com.mycompany.memberAPI.dto.UsePoint" alias="usePoint" />
+		<typeAlias type="com.mycompany.memberAPI.dto.Point" alias="point" />
 		<typeAlias type="com.mycompany.memberAPI.dto.DetailPoint" alias="detailPoint" />
-		<typeAlias type="com.mycompany.memberAPI.dto.PointList" alias="pointList" />
 	</typeAliases>
 </configuration>

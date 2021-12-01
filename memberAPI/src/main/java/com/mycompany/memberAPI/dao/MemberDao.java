@@ -13,8 +13,7 @@ public interface MemberDao {
 	public void updateLastLoginDate(String memberId);
 	public void updateMember(Member member);
 	public MemberForOrder getMemberForOrder(String memberId);
-	public void updateSavePoint(Member member);
-	public void updateUsePoint(Member member);
+	public void updatePointBalance(Member member);
 	public int getMemberPoint(String memberId);
 	public void updateAccountPassword(Member member);
 }

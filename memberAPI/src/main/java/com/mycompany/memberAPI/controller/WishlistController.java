@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,8 @@ public class WishlistController {
 	@Resource
 	private WishlistService wishlistService;
 	
-	@GetMapping
-	public List<Wishlist> getWishlist(@RequestBody String memberId) {
+	@GetMapping("/{memberId}")
+	public List<Wishlist> getWishlist(@PathVariable String memberId) {
 		log.info("WISHLIST 조회");
 		List<Wishlist> wishlist = wishlistService.getWishlist(memberId);
 		return wishlist;
@@ -37,9 +38,12 @@ public class WishlistController {
 		wishlistService.insertProduct(wishlist);
 	}
 	
-	@DeleteMapping
-	public void deleteProduct(@RequestBody Wishlist wishlist) {
+	@DeleteMapping("/{memberId}/{productDetailId}")
+	public void deleteProduct(@PathVariable String memberId, @PathVariable String productDetailId) {
 		log.info("WISHLIST 삭제");
+		Wishlist wishlist = new Wishlist();
+		wishlist.setMemberId(memberId);
+		wishlist.setProductDetailId(productDetailId);
 		wishlistService.deleteProduct(wishlist);
 	}
 }

@@ -8,8 +8,7 @@ import com.mycompany.memberAPI.dto.MemberCoupon;
 
 @Mapper
 public interface MemberCouponDao {
-	public List<MemberCoupon> getAvailableMemberCoupon(String memberId);
-	public List<MemberCoupon> getUnavailableMemberCoupon(String memberId);
+	public List<MemberCoupon> getMemberCoupon(String memberId);
 	public void insertMemberCoupon(MemberCoupon memberCoupon);
 	public void updateMemberCoupon(MemberCoupon memberCoupon);
 	public MemberCoupon getDuplicateCoupon(MemberCoupon memberCoupon);

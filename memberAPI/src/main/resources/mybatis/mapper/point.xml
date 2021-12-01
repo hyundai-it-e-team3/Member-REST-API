@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.memberAPI.dao.PointDao">
+	<select id="getPointList" parameterType="String" resultType="point">
+		SELECT *
+		FROM point
+		WHERE member_id = #{memberId}
+	</select>
+	
+	<insert id="insertSavePoint" parameterType="point">
+		<selectKey keyProperty="pointSeq" resultType="int" order="BEFORE">
+			SELECT seq_point.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO point (point_seq, member_id, order_id, type, point, reg_date)
+		VALUES (#{pointSeq}, #{memberId}, #{orderId}, #{type}, #{point}, sysdate)
+	</insert>
+	
+	<insert id="insertUsePoint" parameterType="point">
+		<selectKey keyProperty="pointSeq" resultType="int" order="BEFORE">
+			SELECT seq_point.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO point (point_seq, member_id, order_id, type, point, reg_date)
+		VALUES (#{pointSeq}, #{memberId}, #{orderId}, #{type}, #{point}, sysdate)
+	</insert>
+</mapper>

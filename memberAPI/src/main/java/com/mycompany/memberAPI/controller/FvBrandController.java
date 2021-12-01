@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,10 @@ public class FvBrandController {
 	@Resource
 	private FvBrandService fvBrandService;
 	
-	@GetMapping
-	public List<FvBrand> getWishlist(@RequestBody String memberId) {
+	@GetMapping("/{memberId}")
+	public List<FvBrand> getWishlist(@PathVariable String memberId) {
 		log.info("선호브랜드 조회");
-		List<FvBrand> fvBrand = fvBrandService.getFvBrand(memberId);
-		return fvBrand;
+		return fvBrandService.getFvBrand(memberId);
 	}
 	
 	@PostMapping
@@ -37,9 +37,12 @@ public class FvBrandController {
 		fvBrandService.insertBrand(fvBrand);
 	}
 	
-	@DeleteMapping
-	public void deleteBrand(@RequestBody FvBrand fvBrand) {
+	@DeleteMapping("/{memberId}/{brandName}")
+	public void deleteBrand(@PathVariable String memberId,  @PathVariable String brandName) {
 		log.info("선호브랜드 삭제");
+		FvBrand fvBrand = new FvBrand();
+		fvBrand.setBrandName(brandName);
+		fvBrand.setMemberId(memberId);
 		fvBrandService.deleteBrand(fvBrand);
 	}
 }

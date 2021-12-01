@@ -2,8 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mycompany.memberAPI.dao.DetailPointDao">
-	<insert id="insertDetailPoint" parameterType="detailPoint">
-		INSERT INTO detail_point
-		VALUES (#{savePointSeq}, #{usePointSeq}, #{point}, #{orderId})
+	<insert id="insertSaveDetailPoint" parameterType="detailPoint">
+		<selectKey keyProperty="detailPointSeq" resultType="int" order="BEFORE">
+			SELECT seq_detail_point.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO detail_point (detail_point_seq, member_id, type, point_seq, status, reg_date, point, balance, ref_detail_point_seq)
+		VALUES (#{detailPointSeq}, #{memberId}, #{type}, #{pointSeq}, '1', sysdate, #{point}, #{balance}, #{detailPointSeq})
 	</insert>
+	
+	<select id="getAvailableOlderPoint" parameterType="String" resultType="detailPoint">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT *
+				  FROM detail_point
+				  WHERE member_id = #{memberId}
+				  AND status = '1'
+				  ORDER BY reg_date)
+			WHERE ROWNUM <= 1
+		]]>
+	</select>
+	
+	<insert id="insertUseDetailPoint" parameterType="detailPoint">
+		<selectKey keyProperty="detailPointSeq" resultType="int" order="BEFORE">
+			SELECT seq_detail_point.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO detail_point (detail_point_seq, member_id, type, point_seq, status, reg_date, point, balance, ref_detail_point_seq)
+		VALUES (#{detailPointSeq}, #{memberId}, #{type}, #{pointSeq}, '0', sysdate, #{point}, '0', #{refDetailPoinSeq})
+	</insert>
+	
+	<update id="updateBalance">
+		UPDATE detail_point
+		SET balance = #{balance}
+		WHERE detail_point_seq = #{detailPointSeq}
+	</update>
+	
+	<update id="updateUsedStatus" parameterType="int">
+		UPDATE detail_point
+		SET status = '0',
+			balance = '0'
+		WHERE detail_point_seq = #{detailPointSeq}
+	</update>
 </mapper>
