@@ -23,12 +23,8 @@ public class MemberCouponService {
 	@Resource
 	private MemberCouponDao memberCouponDao;
 	
-	public List<MemberCoupon> getAvailableMemberCoupon(String memberId) {
-		return memberCouponDao.getAvailableMemberCoupon(memberId);
-	}
-	
-	public List<MemberCoupon> getUnavailableMemberCoupon(String memberId) {
-		return memberCouponDao.getUnavailableMemberCoupon(memberId);
+	public List<MemberCoupon> getMemberCoupon(String memberId) {
+		return memberCouponDao.getMemberCoupon(memberId);
 	}
 	
 	public InsertMemberCouponResult insertMemberCoupon(MemberCoupon memberCoupon) {

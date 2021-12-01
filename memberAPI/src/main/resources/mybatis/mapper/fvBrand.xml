@@ -3,7 +3,7 @@
 
 <mapper namespace="com.mycompany.memberAPI.dao.FvBrandDao">
 	<select id="getFvBrand" parameterType="String" resultType="fvbrand">
-		SELECT brand_name
+		SELECT *
 		FROM fv_brand
 		WHERE member_id = #{memberId}
 	</select>

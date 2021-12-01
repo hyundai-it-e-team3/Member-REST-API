@@ -41,15 +41,9 @@
 		AND a.default_address = '1'
 	</select>
 	
-	<update id="updateSavePoint" parameterType="member">
+	<update id="updatePointBalance" parameterType="member">
 		UPDATE member
 		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) + #{point}
-		WHERE member_id = #{memberId}
-	</update>
-	
-	<update id="updateUsePoint" parameterType="member">
-		UPDATE member
-		SET point = (SELECT point FROM member WHERE member_id = #{memberId}) - #{point}
 		WHERE member_id = #{memberId}
 	</update>
 	

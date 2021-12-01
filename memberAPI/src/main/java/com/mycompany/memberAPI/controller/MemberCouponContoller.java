@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +26,10 @@ public class MemberCouponContoller {
 	@Resource
 	private MemberCouponService memberCouponService;
 	
-	@GetMapping("/availableCoupon")
-	public List<MemberCoupon> getAvailableMemberCoupon(@RequestBody String memberId) {
+	@GetMapping("/list/{memberId}")
+	public List<MemberCoupon> getMemberCoupon(@PathVariable String memberId) {
 		log.info("사용 가능한 쿠폰 목록 조회 실행");
-		return memberCouponService.getAvailableMemberCoupon(memberId);
-	}
-	
-	@GetMapping("/unavailableCoupon")
-	public List<MemberCoupon> getUnavailableMemberCoupon(@RequestBody String memberId) {
-		log.info("사용 불가능한(사용완료/기간만료) 쿠폰 목록 조회 실행");
-		return memberCouponService.getUnavailableMemberCoupon(memberId);
+		return memberCouponService.getMemberCoupon(memberId);
 	}
 	
 	@PostMapping
