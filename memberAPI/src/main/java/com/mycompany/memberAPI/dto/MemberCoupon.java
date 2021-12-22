@@ -15,4 +15,5 @@ public class MemberCoupon {
 	private int amount;
 	private char type;
 	private String content;
+	private Date useDate;
 }

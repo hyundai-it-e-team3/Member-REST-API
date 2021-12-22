@@ -9,8 +9,8 @@
 	</select>
 
 	<insert id="insertMember" parameterType="member">
-		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date, point)
-		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, to_date(#{birthday}, 'yymmdd'), '1', #{memberRole}, '1', sysdate, 0)
+		INSERT INTO member (member_id, password, name, nickname, email, tel, birthday, member_level, member_role, status, last_login_date, point, reg_date)
+		VALUES (#{memberId}, #{password}, #{name}, #{nickname}, #{email}, #{tel}, to_date(#{birthday}, 'yymmdd'), '1', #{memberRole}, '1', sysdate, 0, sysdate)
 	</insert>
 	
 	<update id="deleteMember" parameterType="String">
