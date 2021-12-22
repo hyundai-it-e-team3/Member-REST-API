@@ -6,7 +6,7 @@
 		SELECT *
 		FROM address
 		WHERE member_id = #{member_id}
-		AND detault_address = '1'
+		AND default_address = '1'
 	</select>
 	<select id="getAddressList" parameterType="String" resultType="address">
 		SELECT *

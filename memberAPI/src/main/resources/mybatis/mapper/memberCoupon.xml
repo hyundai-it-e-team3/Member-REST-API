@@ -3,7 +3,7 @@
 
 <mapper namespace="com.mycompany.memberAPI.dao.MemberCouponDao">
 	<select id="getMemberCoupon" parameterType="String" resultType="memberCoupon">
-		SELECT mc.coupon_id, mc.reg_date, mc.exp_date, mc.status, c.name, c.amount, c.type, c.content
+		SELECT mc.coupon_id, mc.reg_date, mc.exp_date, mc.status, mc.use_date, c.name, c.amount, c.type, c.content
 		FROM member_coupon mc, coupon c
 		WHERE mc.coupon_id = c.coupon_id
 		AND member_id = #{memberId}
@@ -16,7 +16,8 @@
 	
 	<update id="updateMemberCoupon" parameterType="memberCoupon">
 		UPDATE member_coupon 
-		SET status = '2'
+		SET status = '2',
+			use_date = sysdate
 		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</update>
 	
@@ -25,4 +26,11 @@
 		FROM member_coupon
 		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
 	</select>
+	
+	<update id="refundMemberCoupon" parameterType="memberCoupon">
+		UPDATE member_coupon
+		SET status = '1',
+			use_date = null
+		WHERE member_id = #{memberId} AND coupon_id = #{couponId}
+	</update>
 </mapper>

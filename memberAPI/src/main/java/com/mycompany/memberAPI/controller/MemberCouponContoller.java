@@ -45,4 +45,9 @@ public class MemberCouponContoller {
 		memberCouponService.updateMemberCoupon(memberCoupon);
 	}
 	
+	@PatchMapping("/refund")
+	public void refundMemberCoupon(@RequestBody MemberCoupon memberCoupon) {
+		log.info("쿠폰 환불 실행");
+		memberCouponService.refundMemberCoupon(memberCoupon);
+	}
 }

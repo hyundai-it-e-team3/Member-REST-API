@@ -48,4 +48,8 @@ public class MemberCouponService {
 		memberCouponDao.updateMemberCoupon(memberCoupon);
 	}
 	
+	public void refundMemberCoupon(MemberCoupon memberCoupon) {
+		memberCouponDao.refundMemberCoupon(memberCoupon);
+	}
+	
 }

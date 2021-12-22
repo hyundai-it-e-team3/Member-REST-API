@@ -27,8 +27,9 @@ public class AddressController {
 	private AddressService addressService;
 	
 	//기본배송지 조회
-	@GetMapping("/{memberId}")
+	@GetMapping("/member/{memberId}")
 	public Address getDefaultAddress(@PathVariable String memberId) {
+		log.info("기본배송지 조회");
 		return addressService.getDefaultAddress(memberId);
 	}
 	
