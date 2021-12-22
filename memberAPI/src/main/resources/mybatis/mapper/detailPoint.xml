@@ -42,4 +42,28 @@
 			balance = '0'
 		WHERE detail_point_seq = #{detailPointSeq}
 	</update>
+	
+	<select id="selectRefundDetailPoint" parameterType="String" resultType="detailPoint">
+		SELECT ref_detail_point_seq, point
+		FROM detail_point
+		WHERE point_seq IN
+		<foreach item="pointSeq" collection="refundPointSeq" open="(" close=")" separator=",">
+		 	#{pointSeq}
+		 </foreach>
+		AND type = '사용'
+	</select>
+	
+	<update id="updateUsePointBalanceAndStatus" parameterType="detailPoint">
+		UPDATE detail_point
+		SET status = '1', 
+			balance = ( balance + ( #{point} * -1 ) )
+		WHERE detail_point_seq = #{refDetailPointSeq}
+	</update>
+	
+	<update id="updateRefundDetailPoint" parameterType="String">
+		UPDATE detail_point
+		SET type = '환불',
+			point = 0
+		WHERE point_seq = #{refundPointSeq}
+	</update>
 </mapper>

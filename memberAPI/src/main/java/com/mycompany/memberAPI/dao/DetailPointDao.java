@@ -1,5 +1,7 @@
 package com.mycompany.memberAPI.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,4 +14,7 @@ public interface DetailPointDao {
 	public void insertUseDetailPoint(DetailPoint useDetailPoint);
 	public void updateBalance(@Param("detailPointSeq") int detailPointSeq, @Param("balance") int balance);
 	public void updateUsedStatus(int detailPointSeq);
+	public List<DetailPoint> selectRefundDetailPoint(List<String> refundPointSeq);
+	public void updateUsePointBalanceAndStatus(DetailPoint detailPoint);
+	public void updateRefundDetailPoint(String refundPointSeq);
 }

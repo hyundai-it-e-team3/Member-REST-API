@@ -8,6 +8,7 @@
 		WHERE member_id = #{member_id}
 		AND default_address = '1'
 	</select>
+	
 	<select id="getAddressList" parameterType="String" resultType="address">
 		SELECT *
 		FROM address

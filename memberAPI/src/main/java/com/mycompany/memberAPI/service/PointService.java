@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.memberAPI.dao.DetailPointDao;
 import com.mycompany.memberAPI.dao.MemberDao;
@@ -32,6 +33,7 @@ public class PointService {
 		return pointDao.getPointList(memberId);
 	}
 	
+	@Transactional
 	public void insertSavePoint(Point savePoint) {
 		log.info("회원 잔액 추가");
 		Member member = new Member();
@@ -53,6 +55,7 @@ public class PointService {
 		detailPointDao.insertSaveDetailPoint(detailPoint);
 	}
 	
+	@Transactional
 	public void insertUsePoint(Point usePoint) {
 		int point = Math.abs(usePoint.getPoint()); //차감(음수) 양수로 변환
 		
@@ -75,7 +78,7 @@ public class PointService {
 		while(!(point == 0)) {
 			log.info("가장 오래된 사용가능한 적립 포인트 내역 조회 및 실행");
 			DetailPoint availableOlderPoint = detailPointDao.getAvailableOlderPoint(usePoint.getMemberId());
-			detailPoint.setRefDetailPoinSeq(availableOlderPoint.getDetailPointSeq());
+			detailPoint.setRefDetailPointSeq(availableOlderPoint.getDetailPointSeq());
 			
 			int balance = availableOlderPoint.getBalance();
 			
@@ -98,6 +101,31 @@ public class PointService {
 			
 			log.info("상세포인트 사용내역 추가 실행");
 			detailPointDao.insertUseDetailPoint(detailPoint);
+		}
+	}
+	
+	@Transactional
+	public void insertRefundPoint(Point refundPoint) {
+		log.info("환불 처리 과정 실행");
+		
+		log.info("Point 테이블");
+		
+		log.info("해당 주문과 관련된 포인트 내역 point_seq 데이터 불러오기");
+		List<String> refundPointSeqList = pointDao.selectRefundPoint(refundPoint);
+		log.info("해당 주문과 관련된 포인트 내역 환불 처리 후 사용 포인트*(-1) 처리");
+		pointDao.updateRefundPoint(refundPoint);
+		
+		log.info("Detail_Point 테이블");
+		
+		log.info("해당 포인트 내역과 관련된 상세 포인트 내역의 ref_detail_point_seq와 point 데이터 불러오기");
+		List<DetailPoint> refundDetailPointList = detailPointDao.selectRefundDetailPoint(refundPointSeqList);
+		log.info("해당 상세 포인트 내역의 참조 사용한 포인트 내역의 status와 balance 되돌리기");
+		for(DetailPoint detailPoint : refundDetailPointList) {
+			detailPointDao.updateUsePointBalanceAndStatus(detailPoint);
+		}
+		log.info("마지막으로 해당 상세 포인트 내역의 환불 처리 후 포인트 0 처리");
+		for(String pointSeq : refundPointSeqList) {
+			detailPointDao.updateRefundDetailPoint(pointSeq);
 		}
 	}
 }

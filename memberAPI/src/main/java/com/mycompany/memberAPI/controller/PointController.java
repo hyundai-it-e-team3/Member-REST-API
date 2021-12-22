@@ -58,4 +58,11 @@ public class PointController {
 		pointService.insertUsePoint(usePoint);
 	}
 	
+	//포인트 환불(추가)
+	@PostMapping("/refund")
+	public void insertRefundPoint(@RequestBody Point refundPoint) {
+		log.info("포인트 환불 실행");
+		log.info(refundPoint.toString());
+		pointService.insertRefundPoint(refundPoint);
+	}
 }

@@ -14,5 +14,5 @@ public class DetailPoint {
 	private Date regDate;
 	private int point;
 	private int balance;
-	private int refDetailPoinSeq;
+	private int refDetailPointSeq;
 }
