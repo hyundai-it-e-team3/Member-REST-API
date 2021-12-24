@@ -42,8 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		//요청 경로 권한 설정
 		http.authorizeRequests()
-//			.antMatchers("/backoffice/**").hasAuthority("ROLE_MANAGER")
-//			.antMatchers("/member/**").authenticated() //로그인된(인증된) 모든 사용자 접근 가능
 			.antMatchers("/**").permitAll();
 		
 		//세션 비활성화
