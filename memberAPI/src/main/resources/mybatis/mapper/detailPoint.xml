@@ -43,13 +43,10 @@
 		WHERE detail_point_seq = #{detailPointSeq}
 	</update>
 	
-	<select id="selectRefundDetailPoint" parameterType="String" resultType="detailPoint">
+	<select id="selectRefundDetailPoint" parameterType="point" resultType="detailPoint">
 		SELECT ref_detail_point_seq, point
 		FROM detail_point
-		WHERE point_seq IN
-		<foreach item="pointSeq" collection="refundPointSeq" open="(" close=")" separator=",">
-		 	#{pointSeq}
-		 </foreach>
+		WHERE point_seq = #{pointSeq}
 		AND type = '사용'
 	</select>
 	
@@ -60,10 +57,10 @@
 		WHERE detail_point_seq = #{refDetailPointSeq}
 	</update>
 	
-	<update id="updateRefundDetailPoint" parameterType="String">
+	<update id="updateRefundDetailPoint" parameterType="point">
 		UPDATE detail_point
 		SET type = '환불',
 			point = 0
-		WHERE point_seq = #{refundPointSeq}
+		WHERE point_seq = #{pointSeq}
 	</update>
 </mapper>

@@ -12,5 +12,5 @@ public interface PointDao {
 	public void insertSavePoint(Point savePoint);
 	public void insertUsePoint(Point usePoint);
 	public void updateRefundPoint(Point refundPoint);
-	public String selectRefundPoint(Point refundPoint);
+	public Point selectRefundPoint(Point refundPoint);
 }

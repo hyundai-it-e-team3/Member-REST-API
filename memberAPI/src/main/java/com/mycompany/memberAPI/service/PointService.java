@@ -105,27 +105,28 @@ public class PointService {
 	}
 	
 	@Transactional
-	public void insertRefundPoint(Point refundPoint) {
+	public void insertRefundPoint(Point refundPoint) { // memberId, orderId
 		log.info("환불 처리 과정 실행");
 		
 		log.info("Point 테이블--------------------");
 		
 		log.info("해당 주문과 관련된 포인트 내역 point_seq, point 데이터 불러오기");
-		String refundPointSeq = pointDao.selectRefundPoint(refundPoint);
+		Point point = pointDao.selectRefundPoint(refundPoint); // return: pointSeq, point
 		
 		log.info("회원 잔액 되돌리기");
 		Member member = new Member();
 		member.setMemberId(refundPoint.getMemberId());
-		member.setPoint(refundPoint.getPoint() * -1);
+		member.setPoint(point.getPoint() * -1);
 		memberDao.updatePointBalance(member);
 		
 		log.info("해당 주문과 관련된 포인트 내역 환불 처리 후 사용 포인트*(-1) 처리");
+		refundPoint.setPoint(point.getPoint());
 		pointDao.updateRefundPoint(refundPoint);
 		
 		log.info("Detail_Point 테이블-----------------");
 		
 		log.info("해당 포인트 내역과 관련된 상세 포인트 내역의 ref_detail_point_seq와 point 데이터 불러오기");
-		List<DetailPoint> refundDetailPointList = detailPointDao.selectRefundDetailPoint(refundPointSeq);
+		List<DetailPoint> refundDetailPointList = detailPointDao.selectRefundDetailPoint(point);
 		
 		log.info("해당 상세 포인트 내역의 참조 사용한 포인트 내역의 status와 balance 되돌리기");
 		for(DetailPoint detailPoint : refundDetailPointList) {
@@ -133,6 +134,6 @@ public class PointService {
 		}
 		
 		log.info("마지막으로 해당 상세 포인트 내역의 환불 처리 후 포인트 0 처리");
-		detailPointDao.updateRefundDetailPoint(refundPointSeq);
+		detailPointDao.updateRefundDetailPoint(point);
 	}
 }
