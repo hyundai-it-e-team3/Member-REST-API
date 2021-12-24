@@ -7,6 +7,7 @@
 		FROM member_coupon mc, coupon c
 		WHERE mc.coupon_id = c.coupon_id
 		AND member_id = #{memberId}
+		AND mc.status = '1'
 	</select>
 	
 	<insert id="insertMemberCoupon" parameterType="memberCoupon">

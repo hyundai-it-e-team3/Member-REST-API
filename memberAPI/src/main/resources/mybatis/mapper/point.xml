@@ -21,11 +21,11 @@
 			SELECT seq_point.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO point (point_seq, member_id, order_id, type, point, reg_date)
-		VALUES (#{pointSeq}, #{memberId}, #{orderId}, #{type}, #{point}, sysdate)
+		VALUES (#{pointSeq}, #{memberId}, #{orderId}, #{type}, #{point} * -1, sysdate)
 	</insert>
 	
 	<select id="selectRefundPoint" parameterType="point" resultType="String">
-		SELECT point_seq
+		SELECT point_seq, point
 		FROM point
 		WHERE member_id = #{memberId}
 		AND order_id = #{orderId}
