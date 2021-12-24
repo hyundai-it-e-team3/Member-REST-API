@@ -6,6 +6,7 @@
 		SELECT *
 		FROM point
 		WHERE member_id = #{memberId}
+		AND point != 0
 	</select>
 	
 	<insert id="insertSavePoint" parameterType="point">
