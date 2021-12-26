@@ -7,6 +7,7 @@
 		FROM point
 		WHERE member_id = #{memberId}
 		AND point != 0
+		ORDER BY reg_date DESC
 	</select>
 	
 	<insert id="insertSavePoint" parameterType="point">
