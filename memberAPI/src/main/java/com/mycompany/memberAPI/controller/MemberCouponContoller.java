@@ -28,7 +28,7 @@ public class MemberCouponContoller {
 	
 	@GetMapping("/list/{memberId}")
 	public List<MemberCoupon> getMemberCoupon(@PathVariable String memberId) {
-		log.info("사용 가능한 쿠폰 목록 조회 실행");
+		log.info("쿠폰 목록 조회 실행");
 		return memberCouponService.getMemberCoupon(memberId);
 	}
 	
